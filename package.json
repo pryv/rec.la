@@ -1,0 +1,28 @@
+{
+  "name": "rec-la",
+  "version": "0.0.1",
+  "homepage": "https://github.com/pryv/rec-la",
+  "description": "SSL cert for HTTPS loopback",
+  "keywords": [
+    "SSL",
+    "localhost",
+    "loopback"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:user/repo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/user/repo/issues"
+  },
+  "author": {
+    "name": "Pryv"
+   },
+  "contributors": [
+    {
+      "name": "Pierre-Mikael Legris",
+      "email": "perki@pryv.com"
+    }
+  ],
+  "license": "BSD"
+}
