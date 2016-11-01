@@ -21,7 +21,7 @@
   "scripts": {
     "start": "node webserver/main.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "express": "^4.14.0"
   },
   "contributors": [
