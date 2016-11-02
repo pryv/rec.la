@@ -7,12 +7,9 @@ var app = express();
 
 
 
-var options = {
-  key: fs.readFileSync(__dirname + '/../src/rec.la-key.pem'),
-  cert: fs.readFileSync(__dirname + '/../src/rec.la-cert.crt'),
-  ca: fs.readFileSync(__dirname + '/../src/rec.la-ca.pem')
-};
+var options = require('../nodejs-hook').httpsOptions;
 
+console.log(process.argv);
 
 // -- read the arguments
 if (process.argv.length < 3) {
@@ -56,6 +53,7 @@ console.log('Rec-la server started on port ' + port + ' and serving path: ' + pa
 
 
 function exitWithTip(tip) {
-  console.error('Error: ' + tip + '\nUsage: node webserver/main.js <path> [port]');
+  console.error('Error: ' + tip +
+    '\nUsage: ' + path.basename(process.argv[1]) + ' <path> [port]');
   process.exit(0);
 }

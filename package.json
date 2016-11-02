@@ -1,6 +1,6 @@
 {
   "name": "rec-la",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/pryv/rec-la",
   "description": "SSL cert for HTTPS loopback",
   "keywords": [
@@ -18,6 +18,8 @@
   "author": {
     "name": "Pryv"
   },
+  "main": "nodejs-hook/index.js",
+  "bin": {"rec-la": "bin/webserver.js"},
   "scripts": {
     "start": "node webserver/main.js"
   },
