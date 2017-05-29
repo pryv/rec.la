@@ -10,7 +10,7 @@ rec.la => 127.0.0.1**
 
 # Why ?
 
-At [Pryv](http://pryv.com) we often have to locally develop web applications that intensively use AJAX rest requests. CORS layer is enforced by pure HTTPS only policies from browsers.
+At [Pryv](http://pryv.com) we often have to locally develop web applications that intensively use AJAX REST requests. CORS layer is enforced by pure HTTPS only policies from browsers.
 
 This is why we refurbished a domain and its SSL certs to a full loopback domain.
 
