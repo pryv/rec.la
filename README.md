@@ -2,8 +2,6 @@
 
 Loopback domain and SSL certs. 
 
-*SSL cert is valid up to the 24th June 2018 -- will be updated before expiration*
-
 rec.la => 127.0.0.1**
 
 `<any host name>.rec.la` points to `localhost`
