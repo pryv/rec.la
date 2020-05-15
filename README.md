@@ -33,12 +33,10 @@ Just download the certs from `src/` for any usage
 Execute:
 `npm install rec-la --save`
 
-
-**Pure node:**
+##### Pure node:
 
 ```javascript  
 var https = require('https');
-
 
 var options = require('rec-la').httpsOptions;
 
@@ -48,7 +46,7 @@ https.createServer(options, (req, res) => {
 }).listen(8443);
 ```
 
-**Express:**
+##### Express:
 
 ```javascript
 var https = require('https');
@@ -61,6 +59,24 @@ var options = require('../nodejs-hook').httpsOptions;
 https.createServer(options, app).listen(8443);
 
 ```
+
+##### Vue.js:
+
+Enable local https for **Vue.js** developpement
+
+```javascript
+const recLaOptions = require('rec-la').httpsOptions;
+recLaOptions.https = true;
+recLaOptions.host = 'l.rec.la';
+
+module.exports = {
+  // your options
+  // ...
+  devServer: recLaOptions
+};
+```
+
+Now `vue-cli-service serve` will be served under `https://l.rec.la`
 
 ### WebServer
 
