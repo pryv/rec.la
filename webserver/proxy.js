@@ -30,24 +30,44 @@ https.createServer(recLaOptions, onRequest).listen(port);
 function onRequest(client_req, client_res) {
   console.log('serve: ' + client_req.url);
 
-  var options = {
-    hostname: hostname,
-    port: hostport,
-    path: client_req.url,
-    method: client_req.method,
-    headers: client_req.headers
-  };
 
-  var proxy = http.request(options, function (res) {
-    client_res.writeHead(res.statusCode, res.headers)
-    res.pipe(client_res, {
+  function writeError(str) {
+    client_res.statusCode = 500;
+    client_res.write(str);
+    client_res.end();
+    console.log('failed: ' + client_req.url + ' > ' + str);
+  }
+
+  try {
+    var options = {
+      hostname: hostname,
+      port: hostport,
+      path: client_req.url,
+      method: client_req.method,
+      headers: client_req.headers
+    };
+
+    var proxy = http.request(options, function (res) {
+      client_res.writeHead(res.statusCode, res.headers)
+      res.pipe(client_res, {
+        end: true
+      });
+    });
+
+    proxy.on('error', function (e) {
+      writeError(e.message);
+    });
+
+    proxy.on('timeout', function () {
+      writeError('timeout');
+    });
+    
+    client_req.pipe(proxy, {
       end: true
     });
-  });
-
-  client_req.pipe(proxy, {
-    end: true
-  });
+  } catch (e) {
+    writeError(e.message);
+  }
 }
 
 function exitWithTip(tip) {
