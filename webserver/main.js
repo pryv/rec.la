@@ -5,8 +5,6 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 
-
-
 var options = require('../nodejs-hook').httpsOptions;
 
 console.log(process.argv);

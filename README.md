@@ -87,3 +87,11 @@ Run: `node webserver/main.js <path> [port]`
 
 Or install for command line usage with `npm install rec-la -g`  
 Then you can call directly `$ rec-la <path> [port]`
+
+### Proxy 
+
+You can also use it as a reverse proxy to convert https => http calls. 
+
+Examples: 
+  - from the repository `npm run proxy localhost:3000` to proxy `https://l.rec.la:4443` => `http://localhost:3000`
+  - If install with `npm install rec-la -g`, do `$ rec-la-proxy <hostname>:[port] [local port]`
