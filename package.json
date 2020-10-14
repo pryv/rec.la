@@ -1,6 +1,6 @@
 {
   "name": "rec-la",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "homepage": "https://github.com/pryv/rec-la",
   "description": "SSL cert for HTTPS loopback",
   "keywords": [
