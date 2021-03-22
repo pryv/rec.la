@@ -1,8 +1,11 @@
 
 const path = require('path');
-const recLaOptions = require('../nodejs-hook').httpsOptions;
+const httpsOptions = require('../nodejs-hook').httpsOptions;
+const check = require('../nodejs-hook').check;
 var https = require('https');
 var http = require('http');
+
+check.expirationMessageToConsole();
 
 // -- read the arguments
 if (process.argv.length < 3) {
@@ -25,7 +28,7 @@ if (isNaN(hostport) || (hostport < 1 || hostport > 65535)) {
   exitWithTip('host port [' + hostport + '] is not a valid port number');
 }
 
-https.createServer(recLaOptions, onRequest).listen(port);
+https.createServer(httpsOptions, onRequest).listen(port);
 
 function onRequest(client_req, client_res) {
   console.log('serve: ' + client_req.url);

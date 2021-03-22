@@ -5,8 +5,9 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 
-var options = require('../nodejs-hook').httpsOptions;
+const {httpsOptions, check} = require('../nodejs-hook');
 
+check.expirationMessageToConsole();
 console.log(process.argv);
 
 // -- read the arguments
@@ -45,7 +46,7 @@ app.use(function (req, res) {
 
 
 
-https.createServer(options, app).listen(port);
+https.createServer(httpsOptions, app).listen(port);
 console.log('Rec-la server started on port ' + port + ' and serving path: ' + path +
   '\nYou can open https://l.rec.la:' + port + '/');
 

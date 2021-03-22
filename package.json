@@ -1,6 +1,6 @@
 {
   "name": "rec-la",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "homepage": "https://github.com/pryv/rec-la",
   "description": "SSL cert for HTTPS loopback",
   "keywords": [
@@ -23,12 +23,16 @@
     "name": "Pryv"
   },
   "main": "nodejs-hook/index.js",
-  "bin": {"rec-la": "bin/webserver.js", "rec-la-proxy": "bin/proxy.js"},
+  "bin": {
+    "rec-la": "bin/webserver.js",
+    "rec-la-proxy": "bin/proxy.js"
+  },
   "scripts": {
     "start": "node webserver/main.js",
     "proxy": "node webserver/proxy.js"
   },
   "dependencies": {
+    "cert2json": "^1.0.10",
     "express": "^4.14.0"
   },
   "contributors": [
