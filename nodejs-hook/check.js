@@ -19,9 +19,9 @@ function expirationDays() { 
 function expirationMessageToConsole() {
   const expireInDays = expirationDays();
   if (expireInDays > 0) {
-    console.log('Rec-la expires in ' + expireInDays + ' days.')
+    console.log('Rec-la SSL certificate expires in ' + expireInDays + ' days.')
   } else {
-    console.error('Rec-la expired since ' + (expireInDays * -1) + ' days. Update package "npm rec-la upgrade"')
+    console.error('Rec-la SSL certificate expired since ' + (expireInDays * -1) + ' days. Update package: "npm upgrade rec-la" or "yarn upgrade rec-la"')
   }
 }
 
