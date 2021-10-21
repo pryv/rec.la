@@ -2,11 +2,13 @@
 
 Loopback domain and SSL certs. 
 
-rec.la => 127.0.0.1**
+*.rec.la => 127.0.0.1
 
 `<any host name>.rec.la` points to `localhost`
 
-# Why ?
+Exception: www.rec.la that points out to a web page to download the certificates. 
+
+## Why ?
 
 At [Pryv](http://pryv.com) we often have to locally develop web applications that intensively use AJAX REST requests. CORS layer is enforced by pure HTTPS only policies from browsers.
 
@@ -14,19 +16,37 @@ This is why we refurbished a domain and its SSL certs to a full loopback domain.
 
 This will enable any developer to benefit from a loopback signed Certificate.
 
-# Usage
+## Update
+
+From  `rec-la v0.2.*` certificates are not shipped with the npm package, but downloaded and updated regularly from [www.rec.la](https://www.rec.la).
+
+Certificates will be checked and eventually refreshed at install and each time the packages is loaded. 
+
+You can update the certs manually with `npm run update`
+
+*Note*: If the certificates are **outdated** and loaded synchronously with  `require('rec-la').httpsOptions();` They will be updated, and stop the service so it can be rebooted.
+
+## Usage
+
+### Command line
+
+|                    | NPM                                    | Instaled with `-g`                  |
+| ------------------ | -------------------------------------- | ----------------------------------- |
+| Launch a webserver | `npm run webserver <directory> [port]` | `rec-la <directory> [port]`         |
+| Launch a proxy     | `npm run proxy <host>:<port> <port>`   | `rec-la-proxy <host>:<port> <port>` |
+| Update certs       | `npm run update`                       | `rec-la-update`                     |
 
 ### ANY
 
-Just download the certs from `src/` for any usage
+Just use the certificates in `certs/` or from [www.rec.la](https://www.rec.la) for any usage
 
 **Files:** 
 
 - rec.la-cert.crt : The certificate
 - rec.la-key.pem : The key
 - rec.la-ca.pem : Certificate of the authority
-- rec.la-bundle.crt
-: Bundle of key + ca
+- rec.la-bundle.crt : Bundle of key + ca
+- pack.json : All this packed in a json file 
 
 ### From a node app
 
@@ -38,13 +58,30 @@ Execute:
 ```javascript  
 var https = require('https');
 
-var options = require('rec-la').httpsOptions;
+var options = require('rec-la').httpsOptions();
 
 https.createServer(options, (req, res) => {
   res.writeHead(200);
   res.end('hello world\n');
 }).listen(8443);
 ```
+
+###### or (check and update before):
+
+```javascript  
+var https = require('https');
+
+var httpsOptionsAsync = require('rec-la').httpsOptionsAsync;
+
+httpsOptionsAsync(function (err, httpsOptions) {
+  https.createServer(httpsOptions, (req, res) => {
+    res.writeHead(200);
+    res.end('hello world\n');
+  }).listen(8443);
+});
+```
+
+
 
 ##### Express:
 
@@ -55,17 +92,20 @@ var app = express();
 
 //...... Your code ....
 
-var options = require('../nodejs-hook').httpsOptions;
-https.createServer(options, app).listen(8443);
+var httpsOptionsAsync = require('../nodejs-hook').httpsOptionsAsync;
+
+httpsOptionsAsync(function (err, httpsOptions) {
+	https.createServer(httpsOptions, app).listen(8443);
+}
 
 ```
 
 ##### Vue.js:
 
-Enable local https for **Vue.js** developpement
+Enable local https for **Vue.js** development
 
 ```javascript
-const recLaOptions = require('rec-la').httpsOptions;
+const recLaOptions = require('rec-la').httpsOptions();
 recLaOptions.https = true;
 recLaOptions.host = 'l.rec.la';
 
