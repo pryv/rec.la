@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 # rec-la
 
 Loopback domain and SSL certs. 
@@ -138,3 +140,9 @@ Examples:
   - from the repository `npm run proxy localhost:3000` to proxy `https://l.rec.la:4443` => `http://localhost:3000`
   - If install with `npm install rec-la -g`, do `$ rec-la-proxy <hostname>:[port] [local port]`
 
+## Contribution are welcome
+
+- Use Github Pull request to submit your contributions.
+## License 
+
+ BSD-3-Clause
