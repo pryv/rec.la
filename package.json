@@ -1,6 +1,6 @@
 {
   "name": "rec-la",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/pryv/rec-la",
   "description": "SSL cert for HTTPS loopback",
   "keywords": [
@@ -10,7 +10,9 @@
     "express",
     "https",
     "Vue.js",
-    "Proxy"
+    "Proxy",
+    "CORS",
+    "Same-Origin Policy"
   ],
   "repository": {
     "type": "git",

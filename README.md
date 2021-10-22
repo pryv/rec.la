@@ -2,19 +2,21 @@
 
 Loopback domain and SSL certs. 
 
-*.rec.la => 127.0.0.1
+**https://\<any hostname>.rec.la/ => https://localhost/**
 
-`<any host name>.rec.la` points to `localhost`
+`<any hostname>.rec.la` points to `localhost`
 
-Exception: www.rec.la that points out to a web page to download the certificates. 
+*Exception*: www.rec.la, a page to download the certificates. 
 
 ## Why ?
 
-At [Pryv](http://pryv.com) we often have to locally develop web applications that intensively use AJAX REST requests. CORS layer is enforced by pure HTTPS only policies from browsers.
+At [Pryv](http://pryv.com) we often have to locally develop web applications that intensively use AJAX REST requests.
 
-This is why we refurbished a domain and its SSL certs to a full loopback domain.
+Browsers inforce [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) mechanism that restricts resources being loaded from another origin. This can be allowed, by sending correct [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers. 
 
-This will enable any developer to benefit from a loopback signed Certificate.
+Making requests to **HTTPS APIs** from **HTTP** sites on **localhost** would not be possible without changing security options on your browser.   
+
+This is why we refurbished a domain and its SSL certs to a full loopback domain, se developpers cann benefit from a loopback signed Certificate.
 
 ## Update
 
@@ -24,7 +26,7 @@ Certificates will be checked and eventually refreshed at install and each time t
 
 You can update the certs manually with `npm run update`
 
-*Note*: If the certificates are **outdated** and loaded synchronously with  `require('rec-la').httpsOptions();` They will be updated, and stop the service so it can be rebooted.
+*Note*: If the certificates are **outdated** and loaded synchronously with  `require('rec-la').httpsOptions();` They will be updated and the service stoped, so it can be rebooted manually.
 
 ## Usage
 
@@ -135,3 +137,4 @@ You can also use it as a reverse proxy to convert https => http calls.
 Examples: 
   - from the repository `npm run proxy localhost:3000` to proxy `https://l.rec.la:4443` => `http://localhost:3000`
   - If install with `npm install rec-la -g`, do `$ rec-la-proxy <hostname>:[port] [local port]`
+
