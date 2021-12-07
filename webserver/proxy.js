@@ -64,7 +64,7 @@ function onRequest(client_req, client_res) {
     proxy.on('timeout', function () {
       writeError('timeout');
     });
-    
+
     client_req.pipe(proxy, {
       end: true
     });
@@ -79,5 +79,5 @@ function exitWithTip(tip) {
   process.exit(0);
 }
 
-console.log('Rec-la proxy started on port ' + port + ' and serving http://' + hostname + ':' + hostport +
+console.log('rec.la proxy started on port ' + port + ' and serving http://' + hostname + ':' + hostport +
   '\nYou can open https://l.rec.la:' + port + '/');

@@ -5,9 +5,9 @@ var check = require('./check');
 
 
 function httpsOptions() {
-  var actual = check.load('=> run `./bin/update` to `rec-la-update` to update');
+  var actual = check.load('=> run `./bin/update` to `rec.la-update` to update');
   if (actual == null || actual.expirationDays < 0) {
-    // lazyly try to update 
+    // lazyly try to update
     console.log('** Lazyly trying to update the certificate on my own ...');
     httpsOptionsAsync(function (err, res) { 
       if (err) {
@@ -17,15 +17,15 @@ function httpsOptions() {
       }
       process.exit(1);
     });
-    
+
     if (actual == null) {
       return {
         key: '',
         cert: '',
         ca: '',
       }
-    } 
-  } 
+    }
+  }
   return {
     key: actual.key,
     cert: actual.cert,
@@ -35,12 +35,12 @@ function httpsOptions() {
 
 /**
  * @callback requestCallback
- * @param {error} error 
+ * @param {error} error
  * @param {res} httpsOptions
  */
 
 /**
- * @param {requestCallback} done 
+ * @param {requestCallback} done
  */
 function httpsOptionsAsync(done) {
   check.updateAndLoad(function (err, actual) {

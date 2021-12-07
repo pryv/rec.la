@@ -38,13 +38,13 @@ app.use(express.static(path));
 // Custom error messages
 app.use(function (req, res) {
   res.status(400).send('No such static file! ' + req.url + ' <br> Server by <B>rec.la</B> ' +
-  '<A HREF="https://github.com/pryv/rec-la">https://github.com/pryv/rec-la</A>');
+  '<A HREF="https://github.com/pryv/rec.la">https://github.com/pryv/rec.la</A>');
 });
 
 
 
 https.createServer(httpsOptions(), app).listen(port);
-console.log('Rec-la server started on port ' + port + ' and serving path: ' + path +
+console.log('rec.la server started on port ' + port + ' and serving path: ' + path +
   '\nYou can open https://l.rec.la:' + port + '/');
 
 
