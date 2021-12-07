@@ -2,5 +2,5 @@ node_modules
 .DS_Store
 certs/rec.la*
 certs/pack.json
-.idea/
-
+.idea
+*.iml
