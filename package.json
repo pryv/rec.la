@@ -1,42 +1,29 @@
 {
   "name": "rec.la",
   "version": "0.3.0",
-  "homepage": "https://github.com/pryv/rec.la",
-  "description": "SSL cert for HTTPS loopback",
+  "description": "Loopback domain and SSL certificates",
   "keywords": [
     "SSL",
     "localhost",
     "loopback",
-    "express",
-    "https",
+    "Express",
+    "HTTPS",
     "Vue.js",
     "Proxy",
     "CORS",
-    "Same-Origin Policy"
+    "Same-origin policy"
   ],
+  "homepage": "https://github.com/pryv/rec.la",
+  "bugs": {
+    "url": "https://github.com/pryv/rec.la/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:pryv/rec.la.git"
   },
-  "bugs": {
-    "url": "https://github.com/pryv/rec.la/issues"
-  },
+  "license": "BSD-3-Clause",
   "author": {
     "name": "Pryv"
-  },
-  "main": "nodejs-hook/index.js",
-  "bin": {
-    "rec.la": "bin/webserver.js",
-    "rec.la-proxy": "bin/proxy.js",
-    "rec.la-update": "bin/update.js"
-  },
-  "scripts": {
-    "start": "node webserver/main.js",
-    "proxy": "node webserver/proxy.js",
-    "postinstall": "node bin/update.js"
-  },
-  "dependencies": {
-    "express": "^4.14.0"
   },
   "contributors": [
     {
@@ -44,5 +31,22 @@
       "email": "perki@pryv.com"
     }
   ],
-  "license": "BSD-3-Clause"
+  "main": "src/index.js",
+  "bin": {
+    "rec.la": "bin/webserver.js",
+    "rec.la-proxy": "bin/proxy.js",
+    "rec.la-update": "bin/update.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/update.js",
+    "lint": "semistandard",
+    "start": "node src/webserver/main.js",
+    "proxy": "node src/webserver/proxy.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "semistandard": "^16.0.1"
+  }
 }

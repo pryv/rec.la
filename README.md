@@ -1,71 +1,79 @@
 # rec.la
 
-[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![npm](https://img.shields.io/npm/v/rec.la)](https://www.npmjs.com/package/rec.la) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-Loopback domain and SSL certs.
+Loopback domain and SSL certificates:
 
-**https://\<any hostname>.rec.la/ => https://localhost/**
+**https://\<any subdomain>.rec.la/ → https://localhost/**
 
-`<any hostname>.rec.la` points to `localhost`
+Any subdomain of `rec.la` points to `localhost`!
 
-*Exception*: www.rec.la, a page to download the certificates.
+**Exception:** `www.rec.la`, which points to a page where you can download the certificates.
 
 
 ## Why ?
 
 At [Pryv](http://pryv.com) we often have to locally develop web applications that intensively use AJAX REST requests.
 
-Browsers inforce [Same-Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) mechanism that restricts resources being loaded from another origin. This can be allowed, by sending correct [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers.
+Browsers enforce the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) mechanism that restricts the loading of resources from another origin. This can be allowed by sending correct [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers.
 
-Making requests to **HTTPS APIs** from **HTTP** sites on **localhost** would not be possible without changing security options on your browser.
-
-This is why we refurbished a domain and its SSL certs to a full loopback domain, se developpers cann benefit from a loopback signed Certificate.
+But making requests to **HTTPS APIs** from **HTTP** sites on **localhost** would not be possible without changing security options on your browser, which is why we refurbished a domain and its SSL certificates as a full loopback domain, to let anyone benefit from a signed certificate on **localhost**.
 
 
-## Update
+## Update: where are the certificates?
 
-From v0.2 onwards, certificates are not shipped with the npm package, but downloaded and updated regularly from [www.rec.la](https://www.rec.la).
+From v0.2 onwards, certificates are not bundled with the npm package, but downloaded and updated from [www.rec.la](https://www.rec.la) at installation and runtime, or manually with `rec.la-update`.
 
-Certificates will be checked and eventually refreshed at install and each time the packages is loaded.
-
-You can update the certs manually with `npm run update`
-
-*Note*: If the certificates are **outdated** and loaded synchronously with  `require('rec.la').httpsOptions();` They will be updated and the service stoped, so it can be rebooted manually.
+Note: If the certificates are outdated and loaded synchronously with  `require('rec.la').httpsOptions()` (see usage below), they will be updated and the service stopped, so it can be rebooted manually.
 
 
 ## Usage
 
+### Installation
+
+```
+npm install rec.la
+```
+
 ### Command line
 
-|                    | NPM                                    | Instaled with `-g`                  |
-| ------------------ | -------------------------------------- | ----------------------------------- |
-| Launch a webserver | `npm run webserver <directory> [port]` | `rec.la <directory> [port]`         |
-| Launch a proxy     | `npm run proxy <host>:<port> <port>`   | `rec.la-proxy <host>:<port> <port>` |
-| Update certs       | `npm run update`                       | `rec.la-update`                     |
+(Don't forget to prefix commands with `npx` if not installed globally.)
 
-### ANY
+Start a webserver serving the contents of a directory on `https://l.rec.la:<port>/`:
 
-Just use the certificates in `certs/` or from [www.rec.la](https://www.rec.la) for any usage
+```
+rec.la <path> [<port>]
+```
 
-**Files:**
+Start a proxy on `https://l.rec.la:<port>/`:
 
-- rec.la-cert.crt : The certificate
-- rec.la-key.pem : The key
-- rec.la-ca.pem : Certificate of the authority
-- rec.la-bundle.crt : Bundle of key + ca
-- pack.json : All this packed in a json file
+```
+rec.la-proxy <target host>[:<target port>] [<port>]
+```
+
+Manually update the certificates:
+
+```
+rec.la-update
+```
+
+### Certificate files
+
+You can also directly use the certificates files on [www.rec.la](https://www.rec.la):
+
+- `rec.la-cert.crt`: The certificate
+- `rec.la-key.pem`: The private key
+- `rec.la-ca.pem`: Certificate of the authority
+- `rec.la-bundle.crt`: Bundle of key + CA
+- `pack.json`: All the above in a JSON file
 
 ### From a node app
 
-Execute:
-`npm install rec.la --save`
+#### Pure Node.js
 
-##### Pure node:
-
-```javascript
-var https = require('https');
-
-var options = require('rec.la').httpsOptions();
+```js
+const https = require('https');
+const options = require('rec.la').httpsOptions();
 
 https.createServer(options, (req, res) => {
   res.writeHead(200);
@@ -73,12 +81,11 @@ https.createServer(options, (req, res) => {
 }).listen(8443);
 ```
 
-###### or (check and update before):
+Or (check and update before):
 
-```javascript
-var https = require('https');
-
-var httpsOptionsAsync = require('rec.la').httpsOptionsAsync;
+```js
+const https = require('https');
+const httpsOptionsAsync = require('rec.la').httpsOptionsAsync;
 
 httpsOptionsAsync(function (err, httpsOptions) {
   https.createServer(httpsOptions, (req, res) => {
@@ -88,63 +95,48 @@ httpsOptionsAsync(function (err, httpsOptions) {
 });
 ```
 
-##### Express:
+#### Express
 
-```javascript
-var https = require('https');
-var express = require('express');
-var app = express();
+```js
+const https = require('https');
+const httpsOptionsAsync = require('rec.la').httpsOptionsAsync;
+const express = require('express');
+const app = express();
 
-//...... Your code ....
-
-var httpsOptionsAsync = require('../nodejs-hook').httpsOptionsAsync;
+// ...your code...
 
 httpsOptionsAsync(function (err, httpsOptions) {
 	https.createServer(httpsOptions, app).listen(8443);
 }
-
 ```
 
-##### Vue.js:
+#### Vue.js
 
-Enable local https for **Vue.js** development
+Enable local HTTPS for development:
 
-```javascript
+```js
 const recLaOptions = require('rec.la').httpsOptions();
 recLaOptions.https = true;
 recLaOptions.host = 'l.rec.la';
 
 module.exports = {
-  // your options
-  // ...
+  // ...your options...
   devServer: recLaOptions
 };
 ```
 
-Now `vue-cli-service serve` will be served under `https://l.rec.la`
-
-### WebServer
-
-For your convenience we provide a small node.js server building.
-
-Install: `npm install`
-Run: `node webserver/main.js <path> [port]`
-
-Or install for command line usage with `npm install rec.la -g`
-Then you can call directly `$ rec.la <path> [port]`
-
-### Proxy
-
-You can also use it as a reverse proxy to convert https => http calls.
-
-Examples:
-  - from the repository `npm run proxy localhost:3000` to proxy `https://l.rec.la:4443` => `http://localhost:3000`
-  - If install with `npm install rec.la -g`, do `$ rec.la-proxy <hostname>:[port] [local port]`
+Now `vue-cli-service serve` will be served on `https://l.rec.la`
 
 
-## Contribution are welcome
+## Contributing
 
-Use Github Pull request to submit your contributions.
+`npm run start` starts the webserver (see `rec.la` CLI command above)
+
+`npm run proxy` starts the proxy (see `rec.la-proxy` CLI command above)
+
+`npm run lint` lints the code with [Semi-Standard](https://github.com/standard/semistandard).
+
+Pull requests are welcome.
 
 
 ## License

@@ -1,18 +1,14 @@
-var fs = require('fs');
-var path = require('path');
-var check = require('./check');
+const check = require('./check');
 
-
-
-function httpsOptions() {
-  var actual = check.load('=> run `./bin/update` to `rec.la-update` to update');
-  if (actual == null || actual.expirationDays < 0) {
+function httpsOptions () {
+  const actual = check.load('=> run `./bin/update` to `rec.la-update` to update');
+  if (actual == null || actual.expirationDays < 0) {
     // lazyly try to update
     console.log('** Lazyly trying to update the certificate on my own ...');
-    httpsOptionsAsync(function (err, res) { 
+    httpsOptionsAsync(function (err, res) {
       if (err) {
         console.log('** Failed with error', err);
-      } else if (res ) {
+      } else if (res) {
         console.log('** Did it!! Killing your service... Just restart your service');
       }
       process.exit(1);
@@ -22,15 +18,15 @@ function httpsOptions() {
       return {
         key: '',
         cert: '',
-        ca: '',
-      }
+        ca: ''
+      };
     }
   }
   return {
     key: actual.key,
     cert: actual.cert,
     ca: actual.ca
-  }
+  };
 }
 
 /**
@@ -42,20 +38,19 @@ function httpsOptions() {
 /**
  * @param {requestCallback} done
  */
-function httpsOptionsAsync(done) {
+function httpsOptionsAsync (done) {
   check.updateAndLoad(function (err, actual) {
     if (err) return done(err);
     if (actual == null) return done(new Error('Failed loading rec.la certificate'));
-    done (null, {
+    done(null, {
       key: actual.key,
       cert: actual.cert,
       ca: actual.ca
-    })
+    });
   });
 }
 
-
 module.exports = {
-  httpsOptions : httpsOptions,
-  httpsOptionsAsync : httpsOptionsAsync
+  httpsOptions: httpsOptions,
+  httpsOptionsAsync: httpsOptionsAsync
 };

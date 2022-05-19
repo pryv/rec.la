@@ -1,2 +1,2 @@
 #! /usr/bin/env node
-require('../webserver/proxy.js');
+require('../src/webserver/proxy.js');

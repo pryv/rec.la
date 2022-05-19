@@ -1,2 +1,2 @@
 #! /usr/bin/env node
-require('../webserver/main.js');
+require('../src/webserver/main.js');
