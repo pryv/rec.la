@@ -107,7 +107,7 @@ const app = express();
 
 httpsOptionsAsync(function (err, httpsOptions) {
 	https.createServer(httpsOptions, app).listen(8443);
-}
+})
 ```
 
 #### Vue.js
