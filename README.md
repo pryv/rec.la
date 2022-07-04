@@ -106,7 +106,7 @@ const app = express();
 // ...your code...
 
 httpsOptionsAsync(function (err, httpsOptions) {
-	https.createServer(httpsOptions, app).listen(8443);
+  https.createServer(httpsOptions, app).listen(8443);
 });
 ```
 
@@ -141,4 +141,4 @@ Pull requests are welcome.
 
 ## License
 
- BSD-3-Clause
+[BSD-3-Clause](LICENSE.md)
