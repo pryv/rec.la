@@ -4,6 +4,8 @@
 
 ⚠️ **Deprecated** use **backloop.dev** as a drop-in replacemendt [NPM](https://www.npmjs.com/package/backloop.dev) - [Github](https://github.com/perki/backloop.dev)
 
+---------------------------
+
 Loopback domain and SSL certificates:
 
 **https://\<any subdomain>.rec.la/ → https://localhost/**
