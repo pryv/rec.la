@@ -2,6 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/rec.la)](https://www.npmjs.com/package/rec.la) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
+⚠️ **Deprecated** use **backloop.dev** as a drop-in replacemendt [NPM](https://www.npmjs.com/package/backloop.dev) - [Github](https://github.com/perki/backloop.dev)
+
 Loopback domain and SSL certificates:
 
 **https://\<any subdomain>.rec.la/ → https://localhost/**
